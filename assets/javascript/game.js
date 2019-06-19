@@ -113,7 +113,10 @@ let questionsObj = [{
 
 function gameStart(arr) {
 
+    transitionScreen.classList.add('hidden');
     gameScreen.classList.remove("hidden");
+
+    questionDisplay.textContent = questionsObj[count].question;
 
     //randomizes answers array so correct answer is not always in the same place
     for (let i = arr.length - 1; i > 0; i--) {
@@ -128,6 +131,7 @@ function gameStart(arr) {
         let radioButton = document.createElement('input');
         radioButton.type = 'radio';
         radioButton.id = arr[i];
+        radioButton.name = 'answers';
         radioLabel.textContent = arr[i];
         radioLabel.setAttribute('for', arr[i]);
         answersDiv.appendChild(radioButton);
@@ -135,11 +139,51 @@ function gameStart(arr) {
     }
 
     //keeps track of where we are in questions object
-    count++;
     
+
     //starts timer
     intervalId = setInterval(timerFunction, 1000);
 }
 
+function placeholderStart(){    
+    let userSelected = document.querySelector('input[name=answers]:checked').value;
+    clearInterval(intervalId);
+    console.log(userSelected);
+
+    transitionScreen.classList.remove("hidden");
+    gameScreen.classList.add("hidden");
+
+    if (userSelected === questionsObj[count].correct) {
+        transitionText.textContent = 'Correct';
+        wins++;
+    } else {
+        transitionText.innerHTML = 'Wrong<br>The correct answer was: ' + questionsObj[count].correct;
+        losses++
+    }
+
+    count++;
+
+    setTimeout(gameStart, 2000, questionsObj[count].answers)
+}
 
 
+function timerFunction() {
+    timerDisplay.textContent = timer;
+    timer--;
+    
+    if (timer === 0){
+        transitionScreen.classList.remove("hidden");
+        gameScreen.classList.add("hidden");
+        transitionText.innerHTML = 'You ran out of time!<br>The correct answer was: ' + questionsObj[count].correct; 
+    }
+}
+
+
+
+
+submitBtn.addEventListener('click', placeholderStart);
+
+playGameBtn.addEventListener('click', () => {
+    gameStart(questionsObj[count].answers);
+    startScreen.classList.add('hidden');
+})
