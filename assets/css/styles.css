@@ -1,3 +1,4 @@
-#gameScreen, #finalScreen {
+.hidden {
     display: none;
 }
+

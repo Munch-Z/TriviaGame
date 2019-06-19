@@ -26,6 +26,9 @@ let losses = 0;
 let wins = 0;
 let timer = 15;
 
+//for clearing interval
+let intervalId;
+
 //Counts questions to reset at max
 let count = 0;
 
@@ -108,11 +111,35 @@ let questionsObj = [{
 }];
 
 
+function gameStart(arr) {
 
-// function shuffle(array) {
-//     for (let i = array.length - 1; i > 0; i--) {
-//       let j = Math.floor(Math.random() * (i + 1));
-//       [array[i], array[j]] = [array[j], array[i]];
-//     }
-//   }
+    gameScreen.classList.remove("hidden");
+
+    //randomizes answers array so correct answer is not always in the same place
+    for (let i = arr.length - 1; i > 0; i--) {
+        let j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+        
+    }
+
+    //creates buttons and labels
+    for (let i = 0; i < arr.length; i++){
+        let radioLabel = document.createElement('label');
+        let radioButton = document.createElement('input');
+        radioButton.type = 'radio';
+        radioButton.id = arr[i];
+        radioLabel.textContent = arr[i];
+        radioLabel.setAttribute('for', arr[i]);
+        answersDiv.appendChild(radioButton);
+        answersDiv.appendChild(radioLabel);
+    }
+
+    //keeps track of where we are in questions object
+    count++;
+    
+    //starts timer
+    intervalId = setInterval(timerFunction, 1000);
+}
+
+
 
