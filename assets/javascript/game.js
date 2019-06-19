@@ -131,6 +131,7 @@ function gameStart(arr) {
         let radioButton = document.createElement('input');
         radioButton.type = 'radio';
         radioButton.id = arr[i];
+        radioButton.value = arr[i];
         radioButton.name = 'answers';
         radioLabel.textContent = arr[i];
         radioLabel.setAttribute('for', arr[i]);
@@ -148,7 +149,8 @@ function gameStart(arr) {
 function placeholderStart(){    
     let userSelected = document.querySelector('input[name=answers]:checked').value;
     clearInterval(intervalId);
-    console.log(userSelected);
+    
+    answersDiv.textContent = '';
 
     transitionScreen.classList.remove("hidden");
     gameScreen.classList.add("hidden");
