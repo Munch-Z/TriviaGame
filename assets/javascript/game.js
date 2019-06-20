@@ -118,6 +118,8 @@ function gameStart(arr) {
 
     questionDisplay.textContent = questionsObj[count].question;
 
+    timerDisplay.textContent = timer;
+
     //randomizes answers array so correct answer is not always in the same place
     for (let i = arr.length - 1; i > 0; i--) {
         let j = Math.floor(Math.random() * (i + 1));
@@ -147,10 +149,17 @@ function gameStart(arr) {
 }
 
 function placeholderStart(){    
-    let userSelected = document.querySelector('input[name=answers]:checked').value;
-    clearInterval(intervalId);
+    let userSelected;
     
-    answersDiv.textContent = '';
+    if (timer > 0) {
+        userSelected = document.querySelector('input[name=answers]:checked').value;
+    }
+    
+    clearInterval(intervalId);
+
+    timer = 15;
+    
+    answersDiv.innerHTML = '';
 
     transitionScreen.classList.remove("hidden");
     gameScreen.classList.add("hidden");
@@ -163,9 +172,27 @@ function placeholderStart(){
         losses++
     }
 
+    if (count < 14){
     count++;
+    setTimeout(gameStart, 500, questionsObj[count].answers);
+    } else {
+       finalScreenStart(); 
+    }
 
-    setTimeout(gameStart, 2000, questionsObj[count].answers)
+}
+
+function finalScreenStart() {
+    finalScreen.classList.remove('hidden');
+    gameScreen.classList.add("hidden");
+    transitionScreen.classList.add("hidden");
+
+    rightAnswer.textContent = 'You answered ' + wins + ' questions correctly';
+    wrongAnswer.textContent = 'You answered ' + losses + ' questions incorrectly';
+
+    wins = 0;
+    losses = 0;
+    count = 0;
+
 }
 
 
@@ -176,7 +203,8 @@ function timerFunction() {
     if (timer === 0){
         transitionScreen.classList.remove("hidden");
         gameScreen.classList.add("hidden");
-        transitionText.innerHTML = 'You ran out of time!<br>The correct answer was: ' + questionsObj[count].correct; 
+        transitionText.innerHTML = 'You ran out of time!<br>The correct answer was: ' + questionsObj[count].correct;
+        setTimeout(placeholderStart, 1000);
     }
 }
 
@@ -189,3 +217,8 @@ playGameBtn.addEventListener('click', () => {
     gameStart(questionsObj[count].answers);
     startScreen.classList.add('hidden');
 })
+
+restartBtn.addEventListener('click', () => {
+    startScreen.classList.remove('hidden');
+    finalScreen.classList.add('hidden');
+});
