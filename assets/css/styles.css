@@ -1,4 +1,73 @@
-.hidden {
+@import url('https://fonts.googleapis.com/css?family=VT323&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    position: relative;
+}
+
+html, body {
+    color: lime;
+    font-family: 'VT323', monospace, sans-serif;
+    background-color: black;
+    text-align: center;
+}
+
+
+button {
+    color: lime;
+    font-family: 'VT323', monospace, sans-serif;
+    border: none;
+    background-color: black;
+    padding: 1em; 
+    font-size: 1.25em;
+}
+
+section {
+    margin: 0 auto;
+    text-align: center;
+    max-width: 900px;
+}
+
+#answerSelection {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    max-width: 450px;
+    width: 100%;
+    margin: 0 auto;
+    font-size: 1.25em;
+}
+
+#timer {
+    padding: 1em;
+    font-size: 2.25em;
+}
+
+#questionHeader {
+    font-size: 1.6em;
+}
+
+label {
+    padding: 3%;
+}
+
+input {
     display: none;
 }
 
+input:checked + label {
+    border: solid 2px lime;
+}
+
+header {
+    margin: 0 auto;
+    text-align: center;
+    font-size: 35px;
+    padding: 10px 0 1em 0;
+}
+
+.hidden {
+    display: none;
+}

@@ -35,77 +35,77 @@ let count = 0;
 //questions and answers
 
 let questionsObj = [{
-    question : "What has been shown to be the most secure type of password for devices and accounts?",
+    question: "What has been shown to be the most secure type of password for devices and accounts?",
     answers: ["A very long list of random words combined with symbols", "Your pets name", "Your mothers maiden name", "The model of your first car"],
     correct: "A very long list of random words combined with symbols"
 },
 {
-    question : " What are the words of the acronym CD-ROM?",
+    question: " What are the words of the acronym CD-ROM?",
     answers: ["Compact Disc Read Only Memory", "Compact Disc Runs On Machine", "Compact Disc Relinquish Owner Machine", "Car Driver Really Oughta Move"],
     correct: "Compact Disc Read Only Memory"
 },
 {
-    question : " One of the first electronic computers, located in Philadelphia, occupied 167 square metres, weighed 27 tons and consumed 150kW of electricity. What was it called?",
+    question: " One of the first electronic computers, located in Philadelphia, occupied 167 square metres, weighed 27 tons and consumed 150kW of electricity. What was it called?",
     answers: ["ENIAC", "Big Blue", "Large and in charge", "Computer McComputer Face"],
     correct: "ENIAC"
 },
 {
-    question : "Which British mathematician and inventor, known as the 'Father of the Computer', designed a mechanical computer called the Analytical Engine which was an early forerunner of the computer we know today?",
+    question: "Which British mathematician and inventor, known as the 'Father of the Computer', designed a mechanical computer called the Analytical Engine which was an early forerunner of the computer we know today?",
     answers: ["Charles Babbage", "Daniel Craig", "Benedict Cumberbatch", "Bill Gates"],
     correct: "Charles Babbage"
 },
 {
-    question : "When IBM chose the name System/360 (or S/360), it was selected to be all-encompassing (a compass rose was the logo for the S/360). As such the System was designed to handle all EXCEPT which of the following types of processing?",
+    question: "When IBM chose the name System/360 (or S/360), it was selected to be all-encompassing (a compass rose was the logo for the S/360). As such the System was designed to handle all EXCEPT which of the following types of processing?",
     answers: ["Graphics Processing", "Batch Processing", "Scientific Processing", "Communications Processing"],
     correct: "Graphics Processing"
 },
 {
-    question : "Which general term refers to all kinds of harmful software, including viruses, worms, trojan horses, and spyware?",
+    question: "Which general term refers to all kinds of harmful software, including viruses, worms, trojan horses, and spyware?",
     answers: ["Malware", "Firmware", "Meanware", "Badware"],
     correct: "Malware"
 },
 {
-    question : "The CPU controls all of a computer's functions. It acts as the brain of the computer. What does CPU stand for?",
+    question: "The CPU controls all of a computer's functions. It acts as the brain of the computer. What does CPU stand for?",
     answers: ["Central Processing Unit", "Central Python Unit", "Cool Part Unix", "Computer Processing Unit"],
     correct: "Central Processing Unit"
 },
 {
-    question : "Which of the following is a non-impact printer?",
+    question: "Which of the following is a non-impact printer?",
     answers: ["ink jet printer", "dot matrix printer", "daisy-wheel printer", "line printer"],
     correct: "ink jet printer"
 },
 {
-    question : "The 'Caesar Cipher' is also known as what?",
+    question: "The 'Caesar Cipher' is also known as what?",
     answers: ["Rot3", "Et tu, Brute? Cipher", "Backstabber", "Salad Cipher"],
     correct: "Rot3"
 },
 {
-    question : "Which is not associated with computers?",
+    question: "Which is not associated with computers?",
     answers: ["Turing Machine", "Babbage Engine", "CPU Overdrive", "FPU Manifold"],
     correct: "FPU Manifold"
 },
 {
-    question : "Which of the following is not a method for encoding text characters on a computer?",
+    question: "Which of the following is not a method for encoding text characters on a computer?",
     answers: ["EBCDIC", "ASCII", "SIXBIT", "ANSI"],
     correct: "ANSI"
 },
 {
-    question : "McAfee, the internet security company, became a subsidiary of which of these in 2011?",
+    question: "McAfee, the internet security company, became a subsidiary of which of these in 2011?",
     answers: ["Dell", "Microsoft", "IBM", "Intel"],
     correct: "Intel"
 },
 {
-    question : "What does ICMP stand for?",
+    question: "What does ICMP stand for?",
     answers: ["Internet Control Message Protocol", "Internal Conflict Management Program", "Internet Connection Modem Protocol", "Intranet Control Message Program"],
     correct: "Internet Control Message Protocol"
 },
 {
-    question : "Algorithms are composed of control structures. Which of these is not a control structure?",
+    question: "Algorithms are composed of control structures. Which of these is not a control structure?",
     answers: ["Pseudocode", "Sequence", "Iteration", "Selection"],
     correct: "Pseudocode"
 },
 {
-    question : "Which of the following is the lowest level of computer language?",
+    question: "Which of the following is the lowest level of computer language?",
     answers: ["Machine language", "PASCAL", "FORTRAN", "Assembler"],
     correct: "Machine language"
 }];
@@ -114,6 +114,7 @@ let questionsObj = [{
 function gameStart(arr) {
     clearInterval(intervalId);
     timer = 15;
+    answersDiv.innerHTML = '';
 
     transitionScreen.classList.add('hidden');
     gameScreen.classList.remove("hidden");
@@ -126,11 +127,11 @@ function gameStart(arr) {
     for (let i = arr.length - 1; i > 0; i--) {
         let j = Math.floor(Math.random() * (i + 1));
         [arr[i], arr[j]] = [arr[j], arr[i]];
-        
+
     }
 
     //creates buttons and labels
-    for (let i = 0; i < arr.length; i++){
+    for (let i = 0; i < arr.length; i++) {
         let radioLabel = document.createElement('label');
         let radioButton = document.createElement('input');
         radioButton.type = 'radio';
@@ -144,19 +145,19 @@ function gameStart(arr) {
     }
 
     //keeps track of where we are in questions object
-    
+
 
     //starts timer
     intervalId = setInterval(timerFunction, 1000);
 }
 
-function placeholderStart(){    
+function placeholderStart() {
     let userSelected;
-    
+
     if (timer > 0) {
         userSelected = document.querySelector('input[name=answers]:checked').value;
     }
-    
+
     clearInterval(intervalId);
 
     timer = 15;
@@ -174,11 +175,11 @@ function placeholderStart(){
         losses++
     }
 
-    if (count < 14){
-    count++;
-    setTimeout(gameStart, 1000, questionsObj[count].answers);
+    if (count < 14) {
+        count++;
+        setTimeout(gameStart, 1000, questionsObj[count].answers);
     } else {
-       finalScreenStart(); 
+        finalScreenStart();
     }
 
 }
@@ -201,14 +202,15 @@ function finalScreenStart() {
 function timerFunction() {
     timer--;
     timerDisplay.textContent = timer;
-    
+
 
     console.log('Timer function timer: ' + timer)
-    
-    if (timer === 0){
+
+    if (timer === 0) {
         transitionScreen.classList.remove("hidden");
         gameScreen.classList.add("hidden");
         transitionText.innerHTML = 'You ran out of time!<br>The correct answer was: ' + questionsObj[count].correct;
+        count++;
         setTimeout(gameStart, 1000, questionsObj[count].answers);
     }
 }
