@@ -112,6 +112,8 @@ let questionsObj = [{
 
 
 function gameStart(arr) {
+    clearInterval(intervalId);
+    timer = 15;
 
     transitionScreen.classList.add('hidden');
     gameScreen.classList.remove("hidden");
@@ -158,7 +160,7 @@ function placeholderStart(){
     clearInterval(intervalId);
 
     timer = 15;
-    
+    console.log('Placeholder reset')
     answersDiv.innerHTML = '';
 
     transitionScreen.classList.remove("hidden");
@@ -174,7 +176,7 @@ function placeholderStart(){
 
     if (count < 14){
     count++;
-    setTimeout(gameStart, 500, questionsObj[count].answers);
+    setTimeout(gameStart, 1000, questionsObj[count].answers);
     } else {
        finalScreenStart(); 
     }
@@ -197,14 +199,17 @@ function finalScreenStart() {
 
 
 function timerFunction() {
-    timerDisplay.textContent = timer;
     timer--;
+    timerDisplay.textContent = timer;
+    
+
+    console.log('Timer function timer: ' + timer)
     
     if (timer === 0){
         transitionScreen.classList.remove("hidden");
         gameScreen.classList.add("hidden");
         transitionText.innerHTML = 'You ran out of time!<br>The correct answer was: ' + questionsObj[count].correct;
-        setTimeout(placeholderStart, 1000);
+        setTimeout(gameStart, 1000, questionsObj[count].answers);
     }
 }
 
